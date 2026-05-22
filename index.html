@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulations & Games — Sethu Nguna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0e2218;--green-mid:#1a3828;--gold:#b8842e;--gold-dim:rgba(184,132,46,0.25);--gold-pale:rgba(184,132,46,0.10);--cream:#f4efe6;--paper:#ffffff;--ink:#1a1a16;--ink-mid:#3d3d36;--ink-muted:#7a7a6e;--rim:rgba(14,34,24,0.10);--ease:cubic-bezier(0.22,1,0.36,1);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:'Josefin Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+*{scrollbar-width:thin;scrollbar-color:var(--gold-dim) transparent;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border:2px solid var(--paper);border-radius:8px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold);}
+::-webkit-scrollbar-corner{background:transparent;}
+.mast{position:relative;background:var(--paper);padding:64px 40px 48px;}
+.mast-inner{position:relative;max-width:1120px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.mast-tag{font-size:9px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-top:16px;display:inline-flex;align-items:center;gap:9px;}
+.mast-tag::before{content:"";width:22px;height:1px;background:var(--gold);opacity:.6;}
+.mast-name{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.6vw,54px);font-weight:300;color:var(--ink);line-height:1.02;letter-spacing:-0.5px;}
+.mast-name em{font-style:italic;color:var(--ink-muted);}
+.mast-role{font-size:9.5px;font-weight:200;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink-muted);margin-top:12px;}
+.mast-links{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.mast-link{font-size:10px;font-weight:300;letter-spacing:1px;color:var(--ink-mid);text-decoration:none;border-bottom:1px solid rgba(184,132,46,0.25);padding-bottom:1px;transition:color .2s,border-color .2s;}
+.mast-link:hover{color:var(--gold);border-color:var(--gold);}
+.mast-bar{height:1px;background:var(--gold-dim);}
+.intro{max-width:1120px;margin:0 auto;padding:48px 40px 0;}
+.intro-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;line-height:1.8;color:var(--ink-mid);max-width:680px;}
+.intro-text strong{font-weight:600;color:var(--ink);}
+.sec{max-width:1120px;margin:54px auto 28px;padding:0 40px;display:flex;align-items:center;gap:20px;}
+.sec-title{font-size:9px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--ink-muted);white-space:nowrap;}
+.sec-rule{flex:1;height:1px;background:var(--rim);}
+.grid{max-width:1120px;margin:0 auto;padding:0 40px 72px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.grid-break{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:20px 0 8px;padding:18px 0;border-top:1px solid var(--rim);}
+.grid-break-copy{display:flex;flex-direction:column;gap:4px;}
+.grid-break-label{font-size:9px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold);}
+.grid-break-note{font-size:9px;font-weight:300;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-muted);}
+.card{background:var(--paper);border:1px solid var(--rim);cursor:pointer;overflow:hidden;transition:border-color .35s var(--ease),box-shadow .35s var(--ease);opacity:0;animation:cardIn .5s var(--ease) both;}
+.card:hover{border-color:rgba(184,132,46,.45);box-shadow:0 8px 24px rgba(14,34,24,0.07);}
+.card.upcoming{position:relative;border-color:rgba(184,132,46,.4);background:var(--paper);}
+.card.upcoming:hover{border-color:rgba(184,132,46,.6);box-shadow:0 8px 24px rgba(14,34,24,0.07);}
+.card:hover .cov{opacity:1;}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card:nth-child(1){animation-delay:.05s;}.card:nth-child(2){animation-delay:.10s;}.card:nth-child(3){animation-delay:.15s;}.card:nth-child(4){animation-delay:.20s;}.card:nth-child(5){animation-delay:.25s;}.card:nth-child(6){animation-delay:.30s;}.card:nth-child(7){animation-delay:.35s;}.card:nth-child(8){animation-delay:.40s;}.card:nth-child(9){animation-delay:.45s;}
+.cthumb{position:relative;width:100%;height:160px;overflow:hidden;}
+.cthumb svg{width:100%;height:100%;display:block;}
+.cthumb img{width:100%;height:100%;display:block;object-fit:cover;}
+.state-pill{position:absolute;top:10px;left:10px;z-index:2;font-size:7.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:rgba(14,34,24,.88);color:var(--cream);border:1px solid rgba(184,132,46,.55);padding:7px 10px;}
+.cov{position:absolute;inset:0;background:rgba(14,34,24,0.72);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.cov-lbl{font-size:9px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:8px 15px;}
+.cinfo{padding:18px 18px 20px;}
+.cnum{font-size:8px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:7px;}
+.ctype{font-size:8.5px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-muted);}
+.upcoming .cnum,.upcoming .ctype{color:var(--gold);}
+.upcoming .cinfo{background:linear-gradient(180deg,rgba(184,132,46,.04) 0%,rgba(184,132,46,0) 100%);}
+.mo{position:fixed;inset:0;background:rgba(10,20,14,0.82);z-index:900;display:flex;align-items:stretch;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.mo.open{opacity:1;pointer-events:all;}
+.mo.open .mp{transform:translateY(0);opacity:1;}
+.mp{background:var(--paper);width:100%;height:100vh;max-height:100vh;overflow-y:auto;transform:translateY(24px);opacity:0;transition:transform .4s var(--ease),opacity .4s var(--ease);position:relative;}
+.mthumb{width:100%;height:clamp(240px,42vh,420px);display:block;}
+.mthumb svg{width:100%;height:100%;display:block;}
+.mthumb img{width:100%;height:100%;display:block;object-fit:cover;}
+.mbody{max-width:720px;margin:0 auto;padding:56px 32px 80px;}
+.mcls{position:fixed;top:0;right:0;background:var(--green);color:rgba(245,241,233,0.85);border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;padding:14px 20px;transition:color .2s;z-index:920;}
+.mcls:hover{color:var(--gold);}
+.mhdr{padding-right:80px;margin-bottom:24px;}
+.mtag{font-size:8.5px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.mtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:300;line-height:1.08;color:var(--ink);margin-bottom:8px;letter-spacing:-0.3px;}
+.msub{font-size:10.5px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--ink-muted);line-height:1.5;}
+.mrule{width:40px;height:1px;background:var(--gold-dim);margin:24px 0;}
+.mdesc{font-family:'Cormorant Garamond',serif;font-size:18.5px;font-weight:300;line-height:1.85;color:var(--ink-mid);margin-bottom:16px;}
+.mdesc strong{font-weight:600;color:var(--ink);}
+.mdesc em{font-style:italic;}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;margin:32px 0;padding:28px 0;border-top:1px solid var(--rim);border-bottom:1px solid var(--rim);}
+.mfl{font-size:8.5px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:7px;}
+.mfv{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;line-height:1.6;color:var(--ink-mid);}
+.mmchl{font-size:8.5px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:12px;}
+.mmchs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:28px;}
+.mpill{font-size:9px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;padding:6px 13px;border:1px solid var(--rim);color:var(--ink-mid);}
+.mlnks{display:flex;flex-wrap:wrap;gap:12px 24px;margin-bottom:20px;align-items:baseline;}
+.mlnk{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);text-decoration:none;border-bottom:1px solid var(--rim);padding-bottom:3px;transition:color .2s,border-color .2s;}
+.mlnk:hover{color:var(--gold);border-color:var(--gold-dim);}
+.mlnk svg{width:11px;height:11px;flex-shrink:0;transition:transform .2s var(--ease);}
+.mlnk:hover svg{transform:translateX(2px);}
+.mlnote{font-size:9px;font-weight:300;color:var(--ink-muted);width:100%;margin-top:-4px;}
+.foot{max-width:1120px;margin:0 auto;padding:32px 40px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-top:1px solid var(--rim);}
+.foot-name{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--ink-muted);}
+.foot-meta{font-size:9px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:rgba(26,26,22,.35);}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);}.mgrid{grid-template-columns:1fr;}}
+@media(max-width:560px){.grid{grid-template-columns:1fr;}.grid-break{padding:12px 14px;flex-direction:column;align-items:flex-start;}.mast{padding:28px 20px 24px;}.mast-inner{flex-direction:column;align-items:flex-start;}.mast-links{align-items:flex-start;}.intro,.sec,.grid,.foot{padding-left:20px;padding-right:20px;}}
+@media print{.mo{display:none;}.card{opacity:1!important;animation:none!important;}}
+</style>
+</head>
+<body>
+<div class="mast"><div class="mast-inner"><div><div class="mast-name">Sethu <em>Nguna</em></div><div class="mast-role">Learning Architect &middot; Simulation Designer &middot; Instructional Systems Developer</div><div class="mast-tag">Portfolio &mdash; Serious Game &amp; Policy Simulation Specialist</div></div><div class="mast-links"><a class="mast-link" href="mailto:sethnguna@gmail.com">sethnguna@gmail.com</a><a class="mast-link" href="https://seth-arc.github.io" target="_blank">seth-arc.github.io</a><a class="mast-link" href="https://linkedin.com/in/sethunguna" target="_blank">linkedin.com/in/sethunguna</a><a class="mast-link" href="https://orcid.org/0000-0002-5313-1368" target="_blank">ORCID 0000-0002-5313-1368</a></div></div></div></div>
+<div class="mast-bar"></div>
+<div class="intro"><p class="intro-text">I design simulations and serious games that make <strong>complex policy systems legible through experience</strong>. My practice spans physical board games, facilitated live-action scenarios, and custom digital platforms. Each learning experience is built to translate empirical research into engaging and consequential play. Audiences have included government officials, journalists, researchers, and development practitioners across Africa, Asia, and the United States.</p></div>
+<div class="sec"><span class="sec-title">Selected Works &mdash; 2022&ndash;2026</span><div class="sec-rule"></div><span class="sec-title">Click any card to expand</span></div>
+<div class="grid">
+
+<div class="card" onclick="openModal('dcmwf')">
+<div class="cthumb"><img src="img/mandela_washington_fellows.jpg" alt="Data Command — Mandela Washington Fellows" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">01</div><div class="ctitle">Data Command</div><div class="ctype">Decision Simulation &mdash; Mandela Washington Fellows</div></div>
+</div>
+
+<div class="card" onclick="openModal('ddd')">
+<div class="cthumb"><img src="img/development_detectives.jpg" alt="Development Data Detectives — Manila 2024" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">02</div><div class="ctitle">Development Data Detectives</div><div class="ctype">Data Analysis Workshop &mdash; Manila 2024</div></div>
+</div>
+
+<div class="card" onclick="openModal('mc')">
+<div class="cthumb"><img src="img/missing_classrooms.jpg" alt="The Missing Classrooms — digital investigation" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">03</div><div class="ctitle">The Missing Classrooms</div><div class="ctype">Multi-Team Digital Investigation</div></div>
+</div>
+
+<div class="card" onclick="openModal('bb')">
+<div class="cthumb"><img src="img/beitbridge.jpg" alt="Beitbridge — AfCFTA capability simulation" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">04</div><div class="ctitle">Beitbridge</div><div class="ctype">AfCFTA Capability Simulation</div></div>
+</div>
+
+<div class="card" onclick="openModal('am')">
+<div class="cthumb"><img src="img/african_mandate_landing.PNG" alt="African Mandate — Sahel Arena" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">05</div><div class="ctitle">African Mandate</div><div class="ctype">Geopolitical Simulation &mdash; Sahel Arena</div></div>
+</div>
+
+<div class="card" onclick="openModal('cto')">
+<div class="cthumb"><img src="img/capital_and_the_other.jpeg" alt="Capital &amp; The Other — educational board game" loading="lazy"><div class="cov"><span class="cov-lbl">View Details</span></div></div>
+<div class="cinfo"><div class="cnum">06</div><div class="ctitle">Capital &amp; The Other</div><div class="ctype">Educational Board Game &mdash; W&amp;M Grant 2024</div></div>
+</div>
+
+</div>
+<div class="foot"><span class="foot-name">Sethu Nguna &mdash; <a href="https://seth-arc.github.io" style="color:var(--ink-muted);text-decoration:none;" target="_blank">seth-arc.github.io</a></span><span class="foot-meta">FAO &mdash; OIN Roster Application &mdash; May 2026</span></div>
+<div class="mo" id="mo" onclick="handleOverlayClick(event)"><div class="mp" id="mp"></div></div>
+
+<template id="content-sbc">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="mg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0c1e14"/><stop offset="100%" stop-color="#162c1e"/></linearGradient></defs><rect width="780" height="220" fill="url(#mg1)"/><line x1="390" y1="38" x2="678" y2="110" stroke="rgba(184,132,46,.22)" stroke-width="1.2"/><line x1="678" y1="110" x2="390" y2="185" stroke="rgba(184,132,46,.22)" stroke-width="1.2"/><line x1="390" y1="185" x2="102" y2="110" stroke="rgba(184,132,46,.22)" stroke-width="1.2"/><line x1="102" y1="110" x2="390" y2="38" stroke="rgba(184,132,46,.22)" stroke-width="1.2"/><line x1="390" y1="38" x2="390" y2="185" stroke="rgba(184,132,46,.07)" stroke-width="1" stroke-dasharray="4,5"/><line x1="102" y1="110" x2="678" y2="110" stroke="rgba(184,132,46,.07)" stroke-width="1" stroke-dasharray="4,5"/><circle cx="390" cy="38" r="22" fill="none" stroke="#b8842e" stroke-width="1.5"/><text x="390" y="43" text-anchor="middle" fill="#b8842e" font-family="Josefin Sans,sans-serif" font-size="9" letter-spacing="2">KAVALA</text><circle cx="678" cy="110" r="22" fill="none" stroke="rgba(184,132,46,.5)" stroke-width="1.5"/><text x="678" y="115" text-anchor="middle" fill="rgba(184,132,46,.6)" font-family="Josefin Sans,sans-serif" font-size="9" letter-spacing="2">CHINA</text><circle cx="390" cy="185" r="22" fill="none" stroke="rgba(184,132,46,.5)" stroke-width="1.5"/><text x="390" y="190" text-anchor="middle" fill="rgba(184,132,46,.6)" font-family="Josefin Sans,sans-serif" font-size="9" letter-spacing="2">PARIS</text><circle cx="102" cy="110" r="22" fill="none" stroke="rgba(184,132,46,.5)" stroke-width="1.5"/><text x="102" y="115" text-anchor="middle" fill="rgba(184,132,46,.6)" font-family="Josefin Sans,sans-serif" font-size="9" letter-spacing="2">IMF</text><circle cx="390" cy="110" r="14" fill="none" stroke="rgba(184,132,46,.28)" stroke-width="1" stroke-dasharray="2,3"/><text x="534" y="68" fill="rgba(245,241,233,.18)" font-family="Josefin Sans,sans-serif" font-size="12">40%</text><text x="220" y="68" fill="rgba(245,241,233,.18)" font-family="Josefin Sans,sans-serif" font-size="12">26%</text><text x="520" y="162" fill="rgba(245,241,233,.18)" font-family="Josefin Sans,sans-serif" font-size="12">20%</text><text x="220" y="162" fill="rgba(245,241,233,.18)" font-family="Josefin Sans,sans-serif" font-size="12">10%</text></svg></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">07 &mdash; Policy Negotiation Simulation &mdash; Upcoming Spring 2027</div><div class="mtitle">Sovereign by Consent</div><div class="msub">Financing Assurances: A Sovereign Debt Negotiation Lab &mdash; AidData at W&amp;M</div></div>
+<div class="mrule"></div>
+<p class="mdesc">A high-stakes multi-party negotiation simulation set in the fictional Republic of <em>Kavala</em>, a lower-middle-income African state facing imminent Eurobond default. Four delegations &mdash; Kavala's government, China's bilateral lender, the Paris Club, and the IMF &mdash; negotiate a restructuring framework under a hard deadline. <strong>Every mechanic encodes a real contractual feature</strong> from AidData's flagship research on Chinese sovereign lending: confidentiality clauses create structural information asymmetry, lender-controlled escrow accounts distort debt sustainability figures, and &ldquo;no Paris Club&rdquo; provisions constrain multilateral coordination by design. Neither agreement nor deadlock is predetermined.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Policy &amp; development practitioners; IMF, World Bank, DFC staff; think tank researchers</div></div>
+<div><div class="mfl">Format</div><div class="mfv">30-min expert framing &middot; 90-min live negotiation &middot; 30-min debrief &middot; 25-min open discussion</div></div>
+<div><div class="mfl">Research Base</div><div class="mfv"><em>How China Lends</em> (Gelpern et al., 2021); <em>How China Collateralizes</em> (Gelpern et al., 2025) &mdash; AidData</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Upcoming; proposed for Spring 2027, supported by the W&amp;M Center Stage program</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Asymmetric information</span><span class="mpill">Role-differentiated briefings</span><span class="mpill">Structural constraint vs. negotiating position</span><span class="mpill">Multi-party coordination failure</span><span class="mpill">Research-to-mechanic translation</span><span class="mpill">Structured debrief</span></div>
+<div class="mlnks"><a class="mlnk" href="https://docs.google.com/document/d/1p6yvriF_g__rvRmNCJm7-0E3XbiMEQ3EdscIfdlb8DM/edit?usp=sharing" target="_blank">Read Concept Note <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="mlnote">Full design documentation available on request.</div></div>
+</div></template>
+
+<template id="content-dcmwf">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/mandela_washington_fellows.jpg" alt="Data Command — Mandela Washington Fellows" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">01 &mdash; Decision-Making Simulation</div><div class="mtitle">Data Command</div><div class="msub">Mandela Washington Fellows &mdash; AidData / Presidential Precinct &mdash; 2024 &amp; 2025</div></div>
+<div class="mrule"></div>
+<p class="mdesc">Participants step into the roles of government officials, community leaders, and NGO representatives in <em>Firania</em>, a fictional nation under compound pressure. Teams analyze real development datasets, negotiate across competing interests, and make resource allocation decisions under time constraints &mdash; then adapt when injected crises (natural disaster, corruption scandal) invalidate prior plans. <strong>First delivered to the 2024 Mandela Washington Fellows</strong> cohort at Presidential Precinct; reprised for the 2025 cohort.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Mandela Washington Fellows (African emerging government leaders); Presidential Precinct</div></div>
+<div><div class="mfl">Delivery</div><div class="mfv">In-person facilitated, Williamsburg VA, 2024 &amp; 2025</div></div>
+<div><div class="mfl">Scale</div><div class="mfv">Multi-team cohort; cross-sectoral participant roles</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Delivered &amp; iterated across two cohort cycles</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Role-play simulation</span><span class="mpill">Data interpretation under pressure</span><span class="mpill">Stakeholder negotiation</span><span class="mpill">Crisis injection &amp; adaptive planning</span><span class="mpill">Evidence-based consensus building</span></div>
+<div class="mlnks"><a class="mlnk" href="https://canva.link/0wshscl0ftqi3uh" target="_blank">View Simulation Deck <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></template>
+
+<template id="content-dcgdf">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="mg3" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#0e1828"/><stop offset="100%" stop-color="#1a2c42"/></linearGradient></defs><rect width="780" height="220" fill="url(#mg3)"/><path d="M 130,205 L 130,118 A 260,200 0 0,1 650,118 L 650,205" fill="none" stroke="rgba(184,132,46,.18)" stroke-width="2"/><rect x="170" y="158" width="12" height="47" fill="rgba(184,132,46,.12)"/><rect x="198" y="138" width="12" height="67" fill="rgba(184,132,46,.12)"/><rect x="226" y="124" width="12" height="81" fill="rgba(184,132,46,.12)"/><rect x="254" y="112" width="12" height="93" fill="rgba(184,132,46,.12)"/><rect x="282" y="104" width="12" height="101" fill="rgba(184,132,46,.12)"/><rect x="310" y="98" width="12" height="107" fill="rgba(184,132,46,.12)"/><rect x="338" y="95" width="12" height="110" fill="rgba(184,132,46,.2)"/><rect x="366" y="98" width="12" height="107" fill="rgba(184,132,46,.12)"/><rect x="394" y="104" width="12" height="101" fill="rgba(184,132,46,.12)"/><rect x="422" y="112" width="12" height="93" fill="rgba(184,132,46,.12)"/><rect x="450" y="124" width="12" height="81" fill="rgba(184,132,46,.12)"/><rect x="478" y="138" width="12" height="67" fill="rgba(184,132,46,.12)"/><rect x="506" y="158" width="12" height="47" fill="rgba(184,132,46,.12)"/><line x1="130" y1="205" x2="650" y2="205" stroke="rgba(184,132,46,.25)" stroke-width="1.5"/><polyline points="80,162 160,148 240,162 330,118 420,136 510,104 600,120 680,112 730,106" fill="none" stroke="#b8842e" stroke-width="2" opacity=".55"/><circle cx="400" cy="136" r="5" fill="#b8842e"/><circle cx="510" cy="104" r="5" fill="#b8842e" opacity=".7"/><text x="390" y="72" text-anchor="middle" fill="rgba(184,132,46,.18)" font-family="Josefin Sans,sans-serif" font-size="14" letter-spacing="8">DEMOCRACY</text></svg></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">08 &mdash; Decision Lab &mdash; Upcoming</div><div class="mtitle">Data Command</div><div class="msub">Global Democracy Fellows &mdash; Upcoming Governance Decision Lab</div></div>
+<div class="mrule"></div>
+<p class="mdesc">An upcoming, contextually adapted iteration of the Data Command scenario designed for the Global Democracy Fellows cohort. Participants take on roles of decision-makers navigating a complex governance environment, using data to diagnose systemic challenges and negotiate responses across competing institutional interests. <strong>The scenario is calibrated to democracy and governance concerns</strong>, with crisis injections that test how evidence holds up under political pressure.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Global Democracy Fellows; governance and civic leadership practitioners</div></div>
+<div><div class="mfl">Delivery</div><div class="mfv">Scheduled for in-person facilitation in July 2026</div></div>
+<div><div class="mfl">Thematic Focus</div><div class="mfv">Democratic governance, evidence-based decision-making, institutional resilience</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Upcoming</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Role-play simulation</span><span class="mpill">Governance scenario</span><span class="mpill">Crisis injection</span><span class="mpill">Evidence vs. political constraint</span><span class="mpill">Structured debrief</span></div>
+<div class="mlnks"><a class="mlnk" href="https://canva.link/2t8f0847l9x5xxj" target="_blank">View Decision Lab Deck <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></template>
+
+<template id="content-ddd">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/development_detectives.jpg" alt="Development Data Detectives — Manila 2024" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">02 &mdash; Workshop Activity</div><div class="mtitle">Development Data Detectives</div><div class="msub">Analysis &amp; Visualization Activity &mdash; AidData / Rappler &mdash; Manila, Philippines 2024</div></div>
+<div class="mrule"></div>
+<p class="mdesc">Participants become data detectives investigating development financing patterns across a selected country from 2000&ndash;2021. Working in specialized teams &mdash; Environmental Impact, Social Heritage, Economic Investment, or Infrastructure &mdash; participants dig into AidData datasets using a proven four-step methodology. <strong>Raw numbers are transformed into compelling visual stories</strong> that reveal trends, inconsistencies, and insights for real audiences. Teams present discoveries and defend analytical choices.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Journalists and civic-tech practitioners; data journalism training cohort</div></div>
+<div><div class="mfl">Delivery</div><div class="mfv">In-person, Manila, Philippines, 2024 &mdash; in partnership with Rappler</div></div>
+<div><div class="mfl">Data Source</div><div class="mfv">AidData development finance datasets, 2000&ndash;2021; country-level project records</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Delivered; replicable across country contexts</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Specialized team roles</span><span class="mpill">4-step data methodology</span><span class="mpill">Pattern recognition</span><span class="mpill">Audience-focused visualization</span><span class="mpill">Storytelling with data</span><span class="mpill">Collaborative analysis &amp; peer challenge</span></div>
+<div class="mlnks"><a class="mlnk" href="https://www.canva.com/design/DAGYM_8H9oo/0NYKfbzhYD0-1ReV0vvlbA/view?utm_content=DAGYM_8H9oo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha866b44083" target="_blank">View Workshop Deck <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></template>
+
+<template id="content-mc">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/missing_classrooms.jpg" alt="The Missing Classrooms — digital investigation" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">03 &mdash; Multi-Team Digital Investigation Simulation</div><div class="mtitle">The Missing Classrooms</div><div class="msub">Data Journalism Investigation Experience &mdash; AidData &amp; CEJ, 2025</div></div>
+<div class="mrule"></div>
+<p class="mdesc">A fictional country's &ldquo;Schools for Every Child&rdquo; programme promised hundreds of new classrooms in underserved communities. A whistleblower has uncovered evidence of widespread mismanagement &mdash; and participants are the investigative team. <strong>Five specialist units work concurrently</strong>: Community Impact, Construction Oversight, Financial Crimes, Geographic Justice, and Procurement. Teams analyze JSON-format government datasets, cross-reference findings, and build a composite story no single team could construct alone.</p>
+<p class="mdesc">The interface is a fully functional Mac-style desktop environment: a USB drive holds all investigation files, a built-in calculator supports on-the-fly analysis, and an email system delivers whistleblower communications. Participants enter through team-specific access codes that determine their data scope.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Journalism students, data literacy practitioners, civic education programmes</div></div>
+<div><div class="mfl">Partners</div><div class="mfv">AidData, William &amp; Mary &mdash; CEJ (Centre for Excellence in Journalism)</div></div>
+<div><div class="mfl">Technology</div><div class="mfv">HTML5 / CSS3 / Vanilla JavaScript; Mac-style desktop UI; JSON datasets; team-gated access codes</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Delivered, 2025</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Team-differentiated access codes</span><span class="mpill">Simulated desktop OS interface</span><span class="mpill">Whistleblower email system</span><span class="mpill">Cross-team pattern recognition</span><span class="mpill">JSON dataset exploration</span><span class="mpill">Progressive disclosure</span><span class="mpill">Evidence-based narrative building</span></div>
+<div class="mlnks"><a class="mlnk" href="https://drive.google.com/file/d/1Vl9TZZZAYNs6XwpG3AR7xd8eAfAMkbvG/view?usp=sharing" target="_blank">Watch Project Video <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></template>
+
+<template id="content-bb">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/beitbridge.jpg" alt="Beitbridge — AfCFTA capability simulation" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">04 &mdash; Digital Narrative Simulation</div><div class="mtitle">Beitbridge</div><div class="msub">An AfCFTA Capability Simulation &mdash; Custom HTML/CSS/JS</div></div>
+<div class="mrule"></div>
+<p class="mdesc">The AfCFTA has built impressive legal <em>capacity</em> for intra-African trade &mdash; but fewer than 20% of African SMEs have ever attempted to export. The barrier is not ambition; it is <strong>capability</strong>: the operational ability to move goods through documentation requirements, unofficial levies, and systemic friction. Beitbridge makes that distinction experiential.</p>
+<p class="mdesc">The player embodies <em>Amara</em>, a Zimbabwean smallholder trader crossing into South Africa with a $480 float and agricultural goods. Capital and hours lost are tracked in real time. Every decision point encodes a documented non-tariff barrier; the end state surfaces the AfCFTA NTB Online Mechanism &mdash; 1,911 registered users across 54 nations &mdash; as proof that the tools exist, but only reach those already inside the system. Grounded in Nguna (2026), <em>African Liberty</em>.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Trade policy practitioners, AfCFTA programme staff, African SME capacity development</div></div>
+<div><div class="mfl">Technology</div><div class="mfv">Custom HTML / CSS / Vanilla JavaScript; fully browser-deployable</div></div>
+<div><div class="mfl">Policy Domain</div><div class="mfv">AfCFTA, non-tariff barriers, capacity vs. capability, 635 African urban border corridors, 42 million residents</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Prototype complete; deployment-ready</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Branching narrative</span><span class="mpill">Resource depletion (capital + time)</span><span class="mpill">Documented NTB data embedded</span><span class="mpill">Danger state escalation</span><span class="mpill">Latent-need surfacing</span><span class="mpill">Policy insight at end state</span><span class="mpill">Replay mechanic</span></div>
+<div class="mlnks">
+<a class="mlnk" href="https://www.africanliberty.org/2026/05/12/the-distinction-africa-must-make-to-unlock-the-afcfta/" target="_blank">Read African Liberty article <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<a class="mlnk" href="https://seth-arc.github.io/beitbridge/" target="_blank">Play Beitbridge <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+</div></template>
+
+<template id="content-am">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/african_mandate_landing.PNG" alt="African Mandate — Sahel Arena" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">05 &mdash; Geopolitical Simulation Platform</div><div class="mtitle">African Mandate</div><div class="msub">Sahel Arena &mdash; React / TypeScript / Leaflet.js</div></div>
+<div class="mrule"></div>
+<p class="mdesc">A multi-actor geopolitical simulation platform built on a custom React / TypeScript / Leaflet stack with enriched GeoJSON spatial data. Players navigate competing spheres of influence across the Sahel region, managing resources, alliances, and intervention decisions across an interactive map interface. Actor dialogue systems present context-sensitive choices; each decision propagates consequences through the simulated political environment. <strong>Designed to make the structural dynamics of African geopolitics legible</strong> to policy audiences through active engagement rather than lecture.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Policy analysts, security researchers, African affairs practitioners</div></div>
+<div><div class="mfl">Technology</div><div class="mfv">React, TypeScript, Leaflet.js, GeoJSON spatial data, custom actor dialogue engine</div></div>
+<div><div class="mfl">Policy Domain</div><div class="mfv">African geopolitics, Sahel security dynamics, regional governance</div></div>
+<div><div class="mfl">Status</div><div class="mfv">Prototype complete</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Spatial decision-making (GeoJSON map)</span><span class="mpill">Multi-actor influence systems</span><span class="mpill">Dialogue-driven consequence</span><span class="mpill">Resource &amp; alliance management</span><span class="mpill">Scenario branching</span></div>
+<div class="mlnks"><a class="mlnk" href="https://drive.google.com/file/d/1qwfeB9WYL1UJM3nT1PH5W9ClG043DVgf/view?usp=sharing" target="_blank">Watch Demo Walkthrough <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</div></template>
+
+<template id="content-cto">
+<button class="mcls" onclick="closeModal()">Close &times;</button>
+<div class="mthumb"><img src="img/capital_and_the_other.jpeg" alt="Capital &amp; The Other — educational board game" loading="lazy"></div>
+<div class="mbody">
+<div class="mhdr"><div class="mtag">06 &mdash; Physical Board Game</div><div class="mtitle">Capital &amp; The Other</div><div class="msub">An Educational Board Game &mdash; W&amp;M Learn, Discover, Innovate Grant 2024&ndash;2025</div></div>
+<div class="mrule"></div>
+<p class="mdesc">An original educational board game designed as a pedagogical intervention for the &lsquo;Economics of Identity: Race, Class, Caste &amp; Gender&rsquo; course at William &amp; Mary. Players navigate an economic simulation in which <strong>identity functions as a structural variable</strong>, shaping resource access, opportunity costs, and systemic outcomes. Playtested with W&amp;M students in 2024. Awarded the William &amp; Mary Learn, Discover, Innovate Grant. Presented at the W&amp;M Teaching &amp; Learning Symposium 2025.</p>
+<div class="mgrid">
+<div><div class="mfl">Audience</div><div class="mfv">Undergraduate economics students; academic &amp; policy learning contexts</div></div>
+<div><div class="mfl">Format</div><div class="mfv">Physical board game with facilitator guide, design toolkit, and playtest documentation</div></div>
+<div><div class="mfl">Recognition</div><div class="mfv">W&amp;M Learn, Discover, Innovate Grant; W&amp;M Teaching &amp; Learning Symposium 2025</div></div>
+<div><div class="mfl">Documentation</div><div class="mfv">Full project report, methodology, design toolkit publicly available</div></div>
+</div>
+<div class="mmchl">Core Mechanics</div>
+<div class="mmchs"><span class="mpill">Economic resource simulation</span><span class="mpill">Identity as structural variable</span><span class="mpill">Board-based turn mechanics</span><span class="mpill">Emergent inequality outcomes</span><span class="mpill">Facilitated debrief</span></div>
+<div class="mlnks">
+<a class="mlnk" href="https://sites.google.com/aiddata.wm.edu/capital-and-the-other" target="_blank">View Project Site <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<a class="mlnk" href="https://canva.link/snc8r9k0kaapqvw" target="_blank">View Symposium Presentation &mdash; W&amp;M T&amp;L 2025 <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+</div></template>
+
+<script>
+function openModal(id){
+  var tpl=document.getElementById('content-'+id);
+  if(!tpl)return;
+  var mp=document.getElementById('mp');
+  mp.innerHTML=tpl.innerHTML;
+  document.getElementById('mo').classList.add('open');
+  document.body.style.overflow='hidden';
+  mp.scrollTop=0;
+}
+function closeModal(){
+  document.getElementById('mo').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('mo'))closeModal();
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
